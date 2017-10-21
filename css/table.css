@@ -1,0 +1,65 @@
+
+tr {
+  padding: 5% 2%;
+  width: 31%;
+  border-bottom: solid thin black;
+  cursor: pointer;
+}
+
+tr.top-row {
+  border-bottom: solid medium black;
+}
+
+th {
+  cursor: pointer;
+  text-align: left;
+}
+
+th#th-id { text-align: center; }
+
+tr.object-row {
+  border-bottom: solid thin black;
+}
+
+td.object-id {
+  text-align: center;
+  width: 10%;
+}
+
+
+td.object-page-type {
+  width: 19%;
+}
+
+
+td.object-text {
+  display: none;
+}
+
+
+
+/* RESULTS */
+
+
+
+.result-match {
+  width: 45%;
+  font-family: courier;
+  text-align: center;
+}
+
+.result-match p {
+  display: inline;
+}
+
+.result-title {
+  width: 24%;
+}
+
+.result-type {
+  width: 24%;
+}
+
+.result-id {
+  width: 10%;
+}
