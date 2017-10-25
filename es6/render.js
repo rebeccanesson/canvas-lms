@@ -235,5 +235,5 @@ function update() {
     .filter(item => item.checked)
     .map(item => item.value)
 
-  resultlist.filter(item => (types.includes(item._values['result-type']), console.log(item._values['result-type'])))
+  resultlist.filter(item => types.includes(item._values['result-type']))
 }
