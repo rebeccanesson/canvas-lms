@@ -192,8 +192,8 @@ var Loader = function () {
 
     this.wait = new MultiSet();
     this.type = "generic";
+    this.token = key;
     this.headers = {
-      "access_token": key,
       "per_page": 1000
     };
   }
@@ -227,7 +227,6 @@ var Loader = function () {
       // that are still being waited on 
       var head = Object.assign({}, this.headers, headers);
       var redi = link.includes(endpoint) ? link.replace(endpoint, local) : link.replace(baselink, local);
-      //: link.replace(endpoint, local)
       var curl = util.addheader(redi, head);
       var call = function call(e, r) {
         _this.wait.remove(redi);
@@ -235,7 +234,7 @@ var Loader = function () {
         if (e) console.log("Error", e);
       };
       this.wait.add(redi);
-      return d3.request(curl).send(method, call);
+      return d3.request(curl).header('Authorization', 'Bearer ' + this.token).get(method, call);
     }
   }, {
     key: "loadlink",
@@ -1066,7 +1065,8 @@ function update() {
   }).map(function (item) {
     return item.value;
   });
+
   resultlist.filter(function (item) {
-    return types.includes(item._values['result-type']);
+    return types.includes(item._values['result-type']), console.log(item._values['result-type']);
   });
 }

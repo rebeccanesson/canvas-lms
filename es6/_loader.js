@@ -9,8 +9,8 @@ class Loader {
   constructor(key) {
     this.wait = new MultiSet()
     this.type = "generic"
+    this.token = key
     this.headers = {
-      "access_token": key,
       "per_page": 1000
     }
   }
@@ -36,7 +36,6 @@ class Loader {
     const redi = link.includes(endpoint)
       ? link.replace(endpoint, local)
       : link.replace(baselink, local)
-      //: link.replace(endpoint, local)
     const curl = util.addheader(redi, head)
     const call = (e, r) => {
       this.wait.remove(redi)
@@ -44,9 +43,11 @@ class Loader {
       if (e) console.log("Error", e);
     }
     this.wait.add(redi)
-    return d3
+     return d3
       .request(curl)
-      .send(method, call)
+      .header('Authorization', 'Bearer ' + this.token)
+      .get(method, call)
+
   }
 
   loadlink(method, link, callback, headers={}) {
