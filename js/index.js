@@ -1067,6 +1067,6 @@ function update() {
   });
 
   resultlist.filter(function (item) {
-    return types.includes(item._values['result-type']), console.log(item._values['result-type']);
+    return types.includes(item._values['result-type']);
   });
 }

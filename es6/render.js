@@ -222,7 +222,6 @@ function searchcourse() {
 
     showresults()
     resultlist.reIndex()
-
   }
 
   return main()
