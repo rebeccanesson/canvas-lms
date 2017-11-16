@@ -52,7 +52,8 @@ const Search = (() => {
           .map(s => ({ "attr": /^<..*?>$/g.test(s), "text":s }))
         : [{ "attr": false, "text":html }]
       if (!ashtml)
-        this.items.forEach(d => d.attr ? null : d.text = onespace(d.text+" "))
+        this.items.forEach(d => 
+          d.attr ? null : d.text = onespace(d.text+" "))
       this.heapify()
     }
 

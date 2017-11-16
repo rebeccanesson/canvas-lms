@@ -241,14 +241,11 @@ var load = function () {
         var url = util.addparams(preurl, params);
         this.wait.add(url);
         var call = function call(r, e) {
-          // console.log(r)
-          _this.wait.remove(url);
-          callback(r, e);
-          if (e) console.log("Error", e);
+          if (r.status === 200) _this.wait.remove(url), callback(r, e);else callback(r, r), console.log("Error", r.statusText);
         };
 
         return popsicle.request({ method: method, url: url, body: body, headers: headers }).then(call).catch(function (x) {
-          return console.log("error", x);
+          return call(undefined, x);
         });
       }
     }, {
@@ -273,7 +270,6 @@ var load = function () {
       value: function loadall(method, link, metadata, callback) {
         var self = this;
         var recursive_call = function recursive_call(r, e) {
-          if (e) console.log("error", e);
           var resp = JSON.parse(r.body);
           if (e || resp.errors) return callback(resp, e);
           resp.forEach(function (r) {
@@ -406,7 +402,7 @@ var load = function () {
       value: function getcourse(course, metadata, callback) {
         var self = this;
         return _get(PageLoader.prototype.__proto__ || Object.getPrototypeOf(PageLoader.prototype), "getcourse", this).call(this, course, {}, function (response, error) {
-          if (error) console.log("error", error), callback(response, error);
+          if (error) callback(response, error);
           self.getlink(response.html_url, metadata, callback);
         });
       }
@@ -439,8 +435,10 @@ var load = function () {
       key: "listcourse",
       value: function listcourse(callback, metadata) {
         var link = this.to_url(["courses"]);
-        return this.getlink(link, metadata, function (ret) {
-          return ret.forEach(callback);
+        return this.getlink(link, metadata, function (r, e) {
+          return e ? callback(undefined, e) : r.forEach(function (r) {
+            return callback(r);
+          });
         });
       }
     }]);
@@ -1222,6 +1220,7 @@ var canvas = function () {
         var courselist = this.courses;
         var loaders = load.loaders(this.key);
         var call = function call(r, e) {
+          if (e) return callback(r, e);
           var course = new CanvasCourse(loaders, r.id, r.name);
           courselist.push(course);
           callback(course);
@@ -1548,15 +1547,16 @@ function displaycourses() {
     var hidd = makehidd(body);
   }
 
-  function loaderror() {
-    return;
+  function loaderror(e) {
+    d3.select("#apikey").attr("placeholder", "api key error: " + e.statusText);
   }
 
   function check() {
     var courses = canvas(data.key);
     courses.loadcourse(function (r, e) {
+      console.log("wjat", e, r);
       if (e) return loaderror(e);
-      if (!data.initialized) main(), data.initialized = true;
+      if (!data.initialized) console.log("initializing"), main(), data.initialized = true;
       data.courses[r.course] = r;
       d3.select("select.course-selection").append("option").text(r.name).attr("value", r.course);
     });

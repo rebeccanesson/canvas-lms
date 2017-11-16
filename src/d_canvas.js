@@ -350,6 +350,7 @@ const canvas = (() => {
       const courselist = this.courses
       const loaders = load.loaders(this.key)
       const call = (r, e) => {
+        if (e) return callback(r, e)
         let course = new CanvasCourse(loaders, r.id, r.name)
         courselist.push(course)
         callback(course)

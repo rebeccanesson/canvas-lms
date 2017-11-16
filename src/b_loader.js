@@ -40,15 +40,17 @@ const load = (() => {
       const url = util.addparams(preurl, params)
       this.wait.add(url)
       const call = (r, e) => {
-        // console.log(r)
-        this.wait.remove(url)
-        callback(r, e)
-        if (e) console.log("Error", e);
+        if (r.status === 200)
+          this.wait.remove(url),
+          callback(r, e)
+        else
+          callback(r, r),
+          console.log("Error", r.statusText);
       }
 
       return popsicle.request({ method, url, body, headers })
         .then(call)
-        .catch(x => console.log("error", x))
+        .catch(x => call(undefined, x))
     }
 
     putcontent(link, metadata, callback = r=>r) {
@@ -65,7 +67,6 @@ const load = (() => {
     loadall(method, link, metadata, callback) {
       const self = this
       const recursive_call = (r, e) => {
-        if (e) console.log("error", e)
         const resp = JSON.parse(r.body)
         if (e || resp.errors)
           return callback(resp, e)
@@ -161,7 +162,6 @@ const load = (() => {
       const self = this
       return super.getcourse(course, {}, (response, error) => {
         if (error)
-          console.log("error", error),
           callback(response, error)
         self.getlink(response.html_url, metadata, callback)
       })
@@ -183,7 +183,8 @@ const load = (() => {
 
     listcourse(callback, metadata) {
       const link = this.to_url(["courses"])
-      return this.getlink(link, metadata, ret => ret.forEach(callback))
+      return this.getlink(link, metadata, (r, e) => 
+        e ? callback(undefined, e) : r.forEach(r => callback(r)))
     }
   }
 

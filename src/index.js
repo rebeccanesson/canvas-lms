@@ -166,7 +166,7 @@ function replace() {
           .transition()
           .style("transform", "translateX(55%)")
         loadcourse(undefined, false)
-              }
+      }
     }))
   }
 
@@ -458,7 +458,7 @@ function displaycourses() {
       data.left.html(""),
       data.right.html("")
     else
-          body.html(""),
+      body.html(""),
       modheader(),
       makeloadbar()
     const left = makeleft(body)
@@ -467,14 +467,20 @@ function displaycourses() {
    
      }
 
-  function loaderror() { return }
+  function loaderror(e) {
+    d3.select("#apikey")
+      .attr("placeholder", `api key error: ${e.statusText}`)
+
+  }
 
   function check() {
     const courses = canvas(data.key)
     courses.loadcourse((r, e) => {
+      console.log("wjat", e, r)
       if (e) return loaderror(e)
       if (!data.initialized)
-              main(),
+        console.log("initializing"),
+        main(),
         data.initialized = true
       data.courses[r.course] = r
       d3.select("select.course-selection")
