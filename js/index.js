@@ -539,10 +539,8 @@ var Search = function () {
         return s !== '';
       }).map(function (s) {
         return { "attr": /^<..*?>$/g.test(s), "text": s };
-      }) : html.split(/ /g).map(function (s) {
-        return { "attr": false, "text": s };
-      });
-      if (ashtml) this.items.forEach(function (d) {
+      }) : [{ "attr": false, "text": html }];
+      if (!ashtml) this.items.forEach(function (d) {
         return d.attr ? null : d.text = onespace(d.text + " ");
       });
       this.heapify();

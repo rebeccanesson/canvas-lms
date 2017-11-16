@@ -50,10 +50,8 @@ const Search = (() => {
           .map(s => s.trim())
           .filter(s => s !== '')
           .map(s => ({ "attr": /^<..*?>$/g.test(s), "text":s }))
-        : html
-          .split(/ /g)
-          .map(s => ({ "attr": false, "text":s }))
-      if (ashtml)
+        : [{ "attr": false, "text":html }]
+      if (!ashtml)
         this.items.forEach(d => d.attr ? null : d.text = onespace(d.text+" "))
       this.heapify()
     }
