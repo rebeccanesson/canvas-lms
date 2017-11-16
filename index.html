@@ -4,8 +4,15 @@
   <title>Canvas - Search</title>
   <link rel="stylesheet" href="css/mimic.css">
   <link rel="stylesheet" href="css/index.css">
-  <link rel="stylesheet" href="css/table.css">
   <link rel="icon" type="image/png" href="img/out.png">
+  <script   
+    src="https://code.jquery.com/jquery-3.2.1.js"   
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="   
+    crossorigin="anonymous">
+  </script> 
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
 
 
 
@@ -13,78 +20,19 @@
 
 
 <body>
+  <section class="header"> Canvas Searcher </section>
+  <section class="body" id="body">
 
-  <section class="results" id="results-holder">
-    <section class="results-head">
-        <div class="close" onclick="hideresults()"> &#10006; </div>
-        <label><input onclick="update()" checked class="topic-select" type="checkbox" value="pages"> Pages </label>
-        <label><input onclick="update()" checked class="topic-select" type="checkbox" value="quizzes"> Quizzes </label>
-        <label><input onclick="update()" checked class="topic-select" type="checkbox" value="assignments"> Assignments </label>
-        <label><input onclick="update()" checked class="topic-select" type="checkbox" value="announcements"> Annoucements </label>
-        <label><input onclick="update()" checked class="topic-select" type="checkbox" value="discussion_topics"> Discussions </label>
-    </section><section class='results-wrapper'>
-    <table class="results">
-      <tr class="top-row">
-        <th class="sort result-match" class="result-match" data-sort="result-match">match</th>
-        <th class="sort result-id" class="result-id" data-sort="result-id">id</th>
-        <th class="sort result-title" class="result-title" data-sort="result-title">title</th>
-        <th class="sort result-type" class="result-page-type" data-sort="result-type">page type</th>
-      </tr>
-      <tbody class="list"></tbody>
-    </table>
-  </section></section>
-
-
-  <section class="outer-wrapper" id="holder">
-
-    <section class="access-key">
-      <form class="access-key" onsubmit="event.preventDefault(), loadcourses()">
-        <input type="text" placeholder="access key" class="access-key" id="input-key">
-        <br><p class="access-key" id="api-key-error"></p>
-      </form>
-    </section>
-
-    <section class="head">
-
-      <div class="title"> SEARCH </div>
-      <form class="searchbar" onsubmit="event.preventDefault(), searchcourse()">
-        <input type="text" class="searchbar search" placeholder="search"  id="input-search">
-        <input type="submit">
-      </form>
-      <select class="coursebar" onchange="loadcontent()" id="course-id">
-        <option value="">course</option>
-      </select>
-
-    </section>
-
-    <section class="html-wrapper">
-      <div class="html-content">
-        <div style="text-align: center">
-          <h1 style="padding: 5vw">Pick a course and click a link on the right.</h1>
-        </div>
-      </div>
-    </section>
-
-    <section class="wrapper">
-      <table class="wrapper">
-        <tr class="top-row">
-          <th class="sort" id="search-id" data-sort="object-id">id</th>
-          <th class="sort" id="search-title" data-sort="object-title">title</th>
-          <th class="sort" id="search-page-type" data-sort="object-page-type">page type</th>
-        </tr>
-        <tbody class="list"></tbody>
-      </table>
-    </section>
   </section>
-
-
-
 </body>
 
 
   <!-- MAIN SCRIPTS -->
+
   <script src="js/d3.v4.min.js"></script>
-  <!--script src="js/jquery-3.2.1.min.js"></script-->
+  <!--script src="js/requests.js"></script-->
+  <script src="js/popsicle.js"></script>
+  <script src="js/navigo.js"></script>
   <script src="js/list.js"></script>
   <script src="js/index.js"></script>
 

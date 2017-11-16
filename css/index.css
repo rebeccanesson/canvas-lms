@@ -1,241 +1,264 @@
-
-::-webkit-scrollbar {
-    /*/ display: none; /**/
+div {
 }
 
-body, html {
-  padding: 0;
-  margin: 0;
-  font-size: 1.3vw;
-  font-family: "arial"
-}
-
-/* HEADERS */
-
-section.head {
-  z-index: 0;
-  top: 0;
-  width: 100%;
-  height: 8%;
-  color: #ddd;
-  position: fixed;
-  background: black;
-}
-
-
-div.title {
-  position: fixed;
-  top: 4%;
-  left: 5%;
-  height: 3vw;
-  line-height: 3vw;
-  display: inline-block;
-  letter-spacing: 0.3vw;
-  transform: translate(0, -50%);
-}
-
-select, input, form {
-  font-size: 1.3vw;
-  padding: 0;
-  margin: 0;
-  display: inline-block;
-}
-
-.head select, .head input[type="text"] {
-  position: fixed;
-  top: 4%;
-  transform: translate(0, -50%);
-  width: 35%;
-  outline: none;
-  border: none;
-  background: transparent;
-  color: #ddd;
-  height: 3vw;
-  display: block;
-}
-
-
-.head input {  left: 13%; }
-.head select { 
-  left: 51%; 
-  transform: translate(0.3vw, -50%);
-}
-
-input[type="submit"] {
-  display: none;
-  width: 0;
-  padding: 0;
-  margin: 0;
-}
-
-input.searchbar {
-  text-align: right; 
-  width: 2%;
-}
-
-
-/* API KEY FORM */
-
-p#api-key-error {
-  font-family: "courier";
-  color: red;
-}
-
-section.access-key {
-  border-top: solid medium;
-  border-bottom: solid medium;
-  z-index: 1;
-  background: white;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  width: 100%;
-  height: 100%;
-}
-
-form.access-key {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
-
-input.access-key {
-  display: inline-block;
-  width: 60%;
-  text-align: center;
-  padding: 2% 0;
-  font-family: "courier";
-  outline: none;
-  border: none;
-  border-bottom: solid thin #ddd;
-}
-
-p.access-key {
-  padding: 0;
-  margin: 0;
-}
-
-/* THE TABLE THING */
-
-section.wrapper {
-  position: fixed;
-  top: 8%;
-  right: 0;
-  width: 46%;
-  height: 92%;
-  overflow: scroll;
-  padding: 0 2%;
-}
-
-table.wrapper {
-  width: 100%;
-}
-
-/* HTML WRAPPER */
-
-section.html-wrapper {
-  position: fixed;
-  overflow: scroll;
-  transform: translateY(8%);
-  float: left;
-  margin: 0;
-  padding: 5% 3%;
-  width: 44%;
-  height: 77%;
-  border-right: solid medium black;
+body {
+    padding:  0;
+    margin:  0;
+    height: 100%;
+    width: 100%;
 }
 
 
 
-div.html-wrapper {
-  position: absolute;
-  font-size: 70%;
-  padding: 0;
-  margin: 0;
+
+div.modal {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
 }
 
-
-/* RESULTS HEADER */
-
-.results label {
-  position: relative;
-  top: 50%;
-  padding: 2%;
-  transform: translate(30%, -50%);
-}
-
-.results div.close {
-  position: relative;
-  float: right;
-  padding: 1% 2%;
-  display: none;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.results select {
-  background: black;
-}
-
-/* SEARCH RESULTS */
-
-section.results-head div {
-  color: white;
-}
-
-section.results-head {
-  z-index: 400;
-  position: fixed;
-  top: 0%;
-  right: 0;
-  height: 8%;
-  width: 0;
-  color: #ddd;
-  background-color: black;
-  transition: 0.5s;
-}
-
-section.results {
-  transition: 0.5s;
-  position: fixed;
-  z-index:3;
-  background: white;
-  border: none;
-  height: 100%;
-  width: 0;
-  top: 0%;
-  right: 0;
-}
-
-section.results-wrapper {
-  overflow: scroll;
-  position: fixed;
-  width: 50%;
-  height: 92%;
-  top: 8%;
-}
-
-table.results {
-  margin: 0 2%;
-  width: 92%;
+div.outer-bar {
+    width: 40%;
+    height: 10%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.5);
+    vertical-align: center;
 }
 
 
 
-section, input, div, select, table, input, form, th, td, tr {
-  /*/ border: solid thin; /**/
+div.inner-bar {
+    width: 0%;
+    height: 100%;
+    background: black;
+}
+
+section.hidd-header, section.header {
+    position: fixed;
+    top: 0;
+    height: 10%;
+    line-height: 10vh;
+    padding: 0 3%;
+    width:  100%;
+    font-size: 110%;
+    letter-spacing: 0.1em;
+    box-shadow: 0px 0px 10px 4px #eee;
+    background: white;
+}
+
+form.keyinput {
+    display: inline-block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+input.keyinput {
+    position: absolute;
+    display: inline-block;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    transform: translate(-50%, -50%);
+
+    padding: 1em 3em;
+    text-align: center;
+    border: none;
+    outline: none;
+    font-size: 90%;
+    font-family: courier, monospace;
+    background: #f8f8f8;
+    border-radius: 3em;
 }
 
 
-/* table in general */
-
-th, td, tr {
-  padding: 1vw;
+section.left, section.right {
+    top: 10%;
+    position: fixed;
+    display: inline-block;
+    overflow: scroll;
 }
+
+section.left {
+    width: 40%;
+    padding: 2.5vh 2.5vw;
+    font-size: 80%;
+    height: 85%;
+}
+
+section.right {
+    right: 0;
+    width: 50%;
+    height: 87.5vh;
+    padding: 0 2.5vw 2.5vh 2.5vw;
+
+}
+
+section.hidd {
+    position: fixed;
+    z-index: 3;
+    left: 45%;
+    width: 55%;
+    height: 100%;
+    background: white;
+    box-shadow: 0px 0px 10px 4px #eee;
+    transform: translateX(100%);
+}
+
+div.close-hidd {
+    right: 0;
+    top: 4%;
+    width: 2vh;
+    height: 2%;
+    position: fixed;
+    right: 3%;
+    background: black;
+    cursor: pointer;
+}
+
+
+div.input-text {
+    position: fixed;
+    display: inline-block;
+    width: 100%;
+    top: 5%;
+    text-align: right;
+    transform: translateY(-50%);
+}
+
+div.input-text-match {
+    position: fixed;
+    display: inline-block;
+    width: 91.5%;
+    top: 5%;
+    text-align: right;
+    transform: translateY(-50%);
+    font-size: 90%;
+}
+
+label.match-type {
+    padding: 0 1%;
+    display: inline-block;
+}
+
+form.replaceform, form.searchform {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 20%;
+    margin: 0  3.5%;
+}
+
+
+form.replaceform { width:44.44%; }
+
+
+input.ashtml {
+    position: fixed;
+    top: 50%;
+    right: 21%;
+    transform: translateY(-60%);
+    border: solid thin;
+}
+
+input.replaceinput, input.search {
+    padding: 0.5%;
+    outline: none;
+    width: 100%;
+    padding: 0.75em 3em;
+
+    border: none;
+    outline: none;
+    font-size: 90%;
+    font-family: courier, monospace;
+    background: #f8f8f8;
+    border-radius: 3em;
+
+}
+
+
+
+select.course-selection {
+    width: 25%;
+    padding: 1em;
+}
+
+section.match-table, section.table { 
+    position: fixed;
+    height: 82vh;
+    width: 50%;
+    overflow: scroll;
+}
+
+section.match-table { width: 95%; }
+
+div.match-row, div.canvas-row {
+    display: block;
+    border-top: solid thin #eee;
+    font-size: 75%;
+}
+
+div.canvas-row { 
+    display: block;
+    border-top: solid thin #eee;
+    font-size: 75%;
+    width: 100%; 
+}
+
+div.match-row { 
+    display: inline-block;
+    width: 100%; 
+    border-top: solid thin #eee;
+    font-size: 75%;
+}
+
+div.canvas-item, div.row-header,
+div.match-item, div.match-head {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 1em 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+div.row-header, div.match-head { 
+    border-bottom: solid medium #eee; 
+    line-height: 7.5vh;
+    padding: 0;
+    margin: 0;
+}
+
+div.match-row:hover,
+div.match-head:hover, 
+div.canvas-row:hover, 
+div.row-header:hover { background: #eee; }
+
+div.match-row:active,
+div.match-head:active, 
+div.canvas-row:active, 
+div.row-header:active { background: #ddd; }
+
+
+div.canvas-html { display: none }
+div.canvas-id, div.head-id { width: 20% }
+div.canvas-name, div.head-name { width: 60% }
+div.canvas-type, div.head-type { width: 20% }
+
+div.head-match-check, div.match-check   { width: 3% }
+div.head-match-id, div.match-id   { width: 10% }
+div.head-match-name, div.match-name { width: 27% }
+div.head-match-type, div.match-type { width: 20% }
+div.head-match-text { width: 43%; }
+div.match-text { width: 40% }
+
+div.canvas-name { text-align: left; }
+
+div.match-body { padding: 11.111% 2.5% 2.5% 2.5%; }
+
