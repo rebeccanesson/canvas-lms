@@ -14,7 +14,7 @@ const load = (() => {
       this.token = key
       this.param = {} // { "per_page": 1000 }
 
-      this.head = { 
+      this.head = {
         "Authorization": `Bearer ${key}`,
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -29,10 +29,10 @@ const load = (() => {
     // load a given link, replacing the base with the local
     // and adding predefined headers
     loadxhr(method, link, {data, param, head}, callback) {
-      // these two lines keep track of the number of objects 
-      // that are still being waited on 
+      // these two lines keep track of the number of objects
+      // that are still being waited on
       const body = data
-      const params  = Object.assign({}, this.param, param) 
+      const params  = Object.assign({}, this.param, param)
       const headers = Object.assign({}, this.head, head)
       const preurl = link.includes(endpoint)
         ? link.replace(endpoint, local)
@@ -53,10 +53,10 @@ const load = (() => {
 
     putcontent(link, metadata, callback = r=>r) {
       return this.loadxhr('PUT', link, metadata, callback)
-    } 
+    }
 
     loadlink(method, link, metadata, callback) {
-      const call = (r, e) => e 
+      const call = (r, e) => e
         ? callback(r, e)
         : callback(JSON.parse(r.body), e)
       return this.loadxhr(method, link, metadata, call)
@@ -67,7 +67,7 @@ const load = (() => {
       const recursive_call = (r, e) => {
         if (e) console.log("error", e)
         const resp = JSON.parse(r.body)
-        if (e || resp.errors) 
+        if (e || resp.errors)
           return callback(resp, e)
         resp.forEach(r => callback(r))
         const next = util.getnext(r)
@@ -79,11 +79,11 @@ const load = (() => {
     }
 
     putlink(link, metadata, callback) {
-      return this.loadlink('PUT', link, metadata, callback) 
+      return this.loadlink('PUT', link, metadata, callback)
     }
 
     getlink(link, metadata, callback) {
-      return this.loadlink('GET', link, metadata, callback) 
+      return this.loadlink('GET', link, metadata, callback)
     }
 
     // get and reget following the next link
@@ -160,7 +160,7 @@ const load = (() => {
     getcourse(course, metadata, callback) {
       const self = this
       return super.getcourse(course, {}, (response, error) => {
-        if (error) 
+        if (error)
           console.log("error", error),
           callback(response, error)
         self.getlink(response.html_url, metadata, callback)
@@ -189,7 +189,7 @@ const load = (() => {
 
 
 
-  // course loader not included cuz 
+  // course loader not included cuz
   // well, its kind of different
   const courses = key => new CourseLoader(key)
   const loaders = key => ({

@@ -189,7 +189,7 @@ select.course-selection {
     padding: 1em;
 }
 
-section.match-table, section.table { 
+section.match-table, section.table {
     position: fixed;
     height: 82vh;
     width: 50%;
@@ -204,16 +204,16 @@ div.match-row, div.canvas-row {
     font-size: 75%;
 }
 
-div.canvas-row { 
+div.canvas-row {
     display: block;
     border-top: solid thin #eee;
     font-size: 75%;
-    width: 100%; 
+    width: 100%;
 }
 
-div.match-row { 
+div.match-row {
     display: inline-block;
-    width: 100%; 
+    width: 100%;
     border-top: solid thin #eee;
     font-size: 75%;
 }
@@ -228,21 +228,21 @@ div.match-item, div.match-head {
 }
 
 
-div.row-header, div.match-head { 
-    border-bottom: solid medium #eee; 
+div.row-header, div.match-head {
+    border-bottom: solid medium #eee;
     line-height: 7.5vh;
     padding: 0;
     margin: 0;
 }
 
 div.match-row:hover,
-div.match-head:hover, 
-div.canvas-row:hover, 
+div.match-head:hover,
+div.canvas-row:hover,
 div.row-header:hover { background: #eee; }
 
 div.match-row:active,
-div.match-head:active, 
-div.canvas-row:active, 
+div.match-head:active,
+div.canvas-row:active,
 div.row-header:active { background: #ddd; }
 
 

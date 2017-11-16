@@ -11,7 +11,7 @@ const canvas = (() => {
     transferrable() {
       return {}
     }
-    
+
     matchable() {
       return []
     }
@@ -83,9 +83,9 @@ const canvas = (() => {
         throw `false assert id: ${id} vs ${this.id}`
     }
 
-    // returns url for getting and posting 
+    // returns url for getting and posting
     arrayurl() {
-      return ["courses", this.courseid, this.pagetype, this.id]  
+      return ["courses", this.courseid, this.pagetype, this.id]
     }
 
     reload() {
@@ -113,7 +113,7 @@ const canvas = (() => {
       Object
         .entries(search)
         .map(([key, s]) => [key, s.search(query, option)])
-        .map(([key, r]) => 
+        .map(([key, r]) =>
           r.map(m => result.push({key, object, m})))
 
       return result
@@ -122,7 +122,7 @@ const canvas = (() => {
     replace(matches, newstr) {
       const cats = {}
       matches
-        .map(({object, key, m}) => 
+        .map(({object, key, m}) =>
           cats[[object.id, key]]
             ? cats[[object.id, key]].match.push(m)
             : cats[[object.id, key]] = {object, key, match:[m]})
@@ -140,7 +140,7 @@ const canvas = (() => {
       // const url_array = this.arrayurl()
       // const url = load.to_url(url_array)
       const link = this.link
-      const data = this.updatename 
+      const data = this.updatename
         ? util.boxkeys(this.updatename, this.altered())
         : this.altered()
       load.putcontent(link, {data}, callback)
@@ -155,9 +155,9 @@ const canvas = (() => {
 
     transferrable() {
       return {
-        "id": "id", 
-        "title": "title", 
-        "rawbody": "description" 
+        "id": "id",
+        "title": "title",
+        "rawbody": "description"
       }
     }
 
@@ -166,7 +166,7 @@ const canvas = (() => {
     }
 
     constructor(response, loader) {
-      super(response, loader)    
+      super(response, loader)
       this.assert_type("quizzes")
       this.updatename = 'quiz'
     }
@@ -177,9 +177,9 @@ const canvas = (() => {
 
     transferrable() {
       return {
-        "id": "page_id", 
-        "title": "title", 
-        "rawbody": "body" 
+        "id": "page_id",
+        "title": "title",
+        "rawbody": "body"
       }
     }
 
@@ -188,7 +188,7 @@ const canvas = (() => {
     }
 
     constructor(response, loader) {
-      super(response, loader)    
+      super(response, loader)
       this.assert_type("pages")
       this.updatename = 'wiki_page'
     }
@@ -201,9 +201,9 @@ const canvas = (() => {
 
     transferrable() {
       return {
-        "id": "id", 
-        "title": "title", 
-        "rawbody": "message" 
+        "id": "id",
+        "title": "title",
+        "rawbody": "message"
       }
     }
 
@@ -212,7 +212,7 @@ const canvas = (() => {
     }
 
     constructor(response, loader) {
-      super(response, loader)    
+      super(response, loader)
       this.assert_type("discussion_topics")
       this.updatename = null
     }
@@ -224,9 +224,9 @@ const canvas = (() => {
 
     transferrable() {
       return {
-        "id": "id", 
-        "title": "title", 
-        "rawbody": "message" 
+        "id": "id",
+        "title": "title",
+        "rawbody": "message"
       }
     }
 
@@ -235,7 +235,7 @@ const canvas = (() => {
     }
 
     constructor(response, loader) {
-      super(response, loader)    
+      super(response, loader)
       this.assert_type("discussion_topics")
       this.updatename = null
     }
@@ -248,9 +248,9 @@ const canvas = (() => {
 
     transferrable() {
       return {
-        "id": "id", 
-        "title": "name", 
-        "rawbody": "description" 
+        "id": "id",
+        "title": "name",
+        "rawbody": "description"
       }
     }
 
@@ -259,7 +259,7 @@ const canvas = (() => {
     }
 
     constructor(response, loader) {
-      super(response, loader)    
+      super(response, loader)
       this.assert_type("assignments")
       this.updatename = 'assignment'
     }
@@ -295,7 +295,7 @@ const canvas = (() => {
         }[type])(response, loader)
 
 
-        const type = loader.type // object.page_type 
+        const type = loader.type // object.page_type
         return prototypes(type, response, loader)
       }
 
@@ -374,7 +374,7 @@ const canvas = (() => {
 
   callback = course => {
     if (course.course !== 1074403)
-      return 
+      return
     else
       course.search('a', 'i')
   }

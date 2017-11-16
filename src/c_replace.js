@@ -36,7 +36,6 @@ const Search = (() => {
       const heap = this.heap = Array(size<<1 + 1).fill(0)
       this.items.forEach((s, i) =>
         heap[i+size] = !s.attr * s.text.length)
-
       for (let i = size - 1; i >= 0; --i)
         heap[i] = heap[l(i)] + heap[r(i)]
 
@@ -45,7 +44,7 @@ const Search = (() => {
     constructor(html, ashtml=false) {
       const match = /(<..*?>)/g
       this.raw = html
-      this.items = ashtml 
+      this.items = ashtml
         ? html
           .split(match)
           .map(s => s.trim())

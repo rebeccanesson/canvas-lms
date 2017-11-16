@@ -5,7 +5,7 @@
 
 
 
-const data = { 
+const data = {
   key:null,
   initialized: false,
   courseselection: null,
@@ -76,10 +76,10 @@ function loadcourse(courseid, reload=true) {
       .append("section")
       .attr("class", "list table")
     makelist()
-    const call = (r, e) => data.hash !== hash 
-        || show_in_table(table, r, true)
-  
-    data.course = data.courses[courseid]
+    const call = (r, e) => data.hash !== hash
+            || show_in_table(table, r, true)
+ 
+     data.course = data.courses[courseid]
     data.course.getcontent(call)
   }
 
@@ -131,8 +131,8 @@ function replace() {
       .value
 
 
-    const checked = row => 
-      row.children[0].children[0].checked
+    const checked = row =>
+          row.children[0].children[0].checked
 
     const rows = Array
       .from(document.getElementsByClassName("match-row"))
@@ -141,16 +141,16 @@ function replace() {
       .map(value => data.matches[value])
     const message = `replace ${rows.length} instance(s) of `
                   + ` "${searchquery}" with "${replacequery}"?`
-    if (!window.confirm(message)) return 
-    const searchers = {}
-    rows.forEach(r => 
-      searchers[r.object.id]
+    if (!window.confirm(message)) return
+        const searchers = {}
+    rows.forEach(r =>
+          searchers[r.object.id]
         ? searchers[r.object.id].push(r)
         : searchers[r.object.id] = [r])
     Object
       .values(searchers)
-      .forEach(s => 
-        s[0].object.replace(s, replacequery))
+      .forEach(s =>
+              s[0].object.replace(s, replacequery))
 
     const items = Object.values(searchers)
       .map(s => s[0].object)
@@ -165,8 +165,8 @@ function replace() {
         data.hidd
           .transition()
           .style("transform", "translateX(55%)")
-        loadcourse(undefined, false) 
-      }
+        loadcourse(undefined, false)
+              }
     }))
   }
 
@@ -239,8 +239,8 @@ function search() {
           const setvalues = new Set(values)
           data.matchlist.filter(item =>
             setvalues.has(item._values["match-type"]))
-        }) 
-
+        })
+        
 
     inputtext
       .append("form")
@@ -370,8 +370,8 @@ function displaycourses() {
   }
 
   function makeleft(body) {
-    const left = data.left 
-      ? data.left
+    const left = data.left
+          ? data.left
       : data.left = body
         .append("section")
         .attr("class", "left")
@@ -398,8 +398,8 @@ function displaycourses() {
 
   function makeright(body) {
     const right = data.right
-      ? data.right 
-      : data.right = body
+      ? data.right
+            : data.right = body
         .append("section")
         .attr("class", "right")
         .attr("id", "right")
@@ -412,8 +412,8 @@ function displaycourses() {
       .attr("class", "input-text")
 
     const select = input
-      .append("select") 
-      .attr("class", "course-selection")
+      .append("select")
+            .attr("class", "course-selection")
     data.input = input
     data.courseselection = select
 
@@ -429,8 +429,8 @@ function displaycourses() {
       .attr("class", "searchform")
       .attr("onsubmit", "event.preventDefault(), search()")
     form
-      .append("input") 
-      .attr("class", "search")
+      .append("input")
+            .attr("class", "search")
       .attr("id", "searchquery")
       .attr("placeholder", "search")
 
@@ -457,15 +457,15 @@ function displaycourses() {
     if (data.initialized)
       data.left.html(""),
       data.right.html("")
-    else 
-      body.html(""),
+    else
+          body.html(""),
       modheader(),
       makeloadbar()
     const left = makeleft(body)
     const right = makeright(body)
     const hidd = makehidd(body)
-    
-  }
+   
+     }
 
   function loaderror() { return }
 
@@ -473,8 +473,8 @@ function displaycourses() {
     const courses = canvas(data.key)
     courses.loadcourse((r, e) => {
       if (e) return loaderror(e)
-      if (!data.initialized) 
-        main(),
+      if (!data.initialized)
+              main(),
         data.initialized = true
       data.courses[r.course] = r
       d3.select("select.course-selection")

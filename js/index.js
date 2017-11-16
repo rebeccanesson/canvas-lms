@@ -232,8 +232,8 @@ var load = function () {
             param = _ref.param,
             head = _ref.head;
 
-        // these two lines keep track of the number of objects 
-        // that are still being waited on 
+        // these two lines keep track of the number of objects
+        // that are still being waited on
         var body = data;
         var params = Object.assign({}, this.param, param);
         var headers = Object.assign({}, this.head, head);
@@ -448,7 +448,7 @@ var load = function () {
     return CourseLoader;
   }(Loader);
 
-  // course loader not included cuz 
+  // course loader not included cuz
   // well, its kind of different
 
 
@@ -520,7 +520,6 @@ var Search = function () {
         this.items.forEach(function (s, i) {
           return heap[i + size] = !s.attr * s.text.length;
         });
-
         for (var i = size - 1; i >= 0; --i) {
           heap[i] = heap[l(i)] + heap[r(i)];
         }
@@ -868,7 +867,7 @@ var canvas = function () {
         if (this.id != resp_id) throw "inconsistent object id: " + resp_id + " vs " + this.id;else if (id && this.id != id) throw "false assert id: " + id + " vs " + this.id;
       }
 
-      // returns url for getting and posting 
+      // returns url for getting and posting
 
     }, {
       key: "arrayurl",
@@ -1155,7 +1154,7 @@ var canvas = function () {
             }[type](response, loader);
           };
 
-          var type = loader.type; // object.page_type 
+          var type = loader.type; // object.page_type
           return prototypes(type, response, loader);
         }
 
@@ -1252,7 +1251,7 @@ var canvas = function () {
   }
    callback = course => {
     if (course.course !== 1074403)
-      return 
+      return
     else
       course.search('a', 'i')
   }

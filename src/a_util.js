@@ -14,7 +14,7 @@ const util = (() => {
       if (this.set[string])
         this.set[string] += 1
       else
-        this.set[string] = 1    
+        this.set[string] = 1
     }
 
     remove(string) {
@@ -83,7 +83,7 @@ const util = (() => {
   function getnext(result) {
     const linkhead = result.get("Link")
     return linkhead
-      ? parselinkheader(linkhead).next 
+      ? parselinkheader(linkhead).next
       : undefined
   }
 
@@ -95,7 +95,7 @@ const util = (() => {
 
   function regex(query, cased) {
     const modifier = cased ? "g" : "ig"
-    return query instanceof RegExp 
+    return query instanceof RegExp
       ? query
       : new RegExp(`(${query})`, modifier)
   }
@@ -124,8 +124,8 @@ const util = (() => {
     const coll = []
     if (!check instanceof Function)
       check = x => x === check
-    array.forEach((val, ind) => { 
-      if (check(val)) coll.push(ind) 
+    array.forEach((val, ind) => {
+      if (check(val)) coll.push(ind)
     })
     return coll
   }
@@ -145,8 +145,8 @@ const util = (() => {
   }
 
   return {
-    watch, regex, getnext, serialize, addparams, indicesof, 
-    splitmatch, textfromhtml, reinitialize, parselinkheader, 
+    watch, regex, getnext, serialize, addparams, indicesof,
+    splitmatch, textfromhtml, reinitialize, parselinkheader,
     pairs_to_object, MultiSet, print, boxkeys
   }
 
