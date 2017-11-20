@@ -748,11 +748,6 @@ var Search = function () {
 
   return Html;
 }();
-
-var string = "<div class=\"yourself\">\n    <p class=\"child\"> \n    Take kindly the counsel of the years,<br>\n    gracefully surrendering the things of youth. <br>\n    Nurture strength of spirit to shield you in sudden misfortune.<br>\n    But do not distress yourself with dark imaginings. <br>\n    Many fears are born of fatigue and loneliness. <br>\n    Beyond a wholesome discipline, <br>\n    be gentle with yourself. <br>\n    </p>\n    <p class=\"child\"> \n    <i>You</i> are a child of the universe, <br>\n    no less than the trees and the stars; <br>\n    you have a right to be _here_. <br>\n    And whether or not it is clear to you, <br>\n    no doubt the universe is unfolding as it \"should.\" <br>\n    </p>\n  </div>";
-
-var s = new Search(string, true);
-console.log(s.text());
 "use strict";
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();

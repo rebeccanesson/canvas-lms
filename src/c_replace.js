@@ -208,25 +208,3 @@ const Search = (() => {
   return Html
 
 })()
-
-let string = `<div class="yourself">
-    <p class="child"> 
-    Take kindly the counsel of the years,<br>
-    gracefully surrendering the things of youth. <br>
-    Nurture strength of spirit to shield you in sudden misfortune.<br>
-    But do not distress yourself with dark imaginings. <br>
-    Many fears are born of fatigue and loneliness. <br>
-    Beyond a wholesome discipline, <br>
-    be gentle with yourself. <br>
-    </p>
-    <p class="child"> 
-    <i>You</i> are a child of the universe, <br>
-    no less than the trees and the stars; <br>
-    you have a right to be _here_. <br>
-    And whether or not it is clear to you, <br>
-    no doubt the universe is unfolding as it "should." <br>
-    </p>
-  </div>`
-
-  let s = new Search(string, true)
-  console.log(s.text())
