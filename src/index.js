@@ -79,7 +79,7 @@ function loadcourse(courseid, reload=true) {
     const call = (r, e) => data.hash !== hash
             || show_in_table(table, r, true)
  
-     data.course = data.courses[courseid]
+    data.course = data.courses[courseid]
     data.course.getcontent(call)
   }
 
@@ -476,10 +476,8 @@ function displaycourses() {
   function check() {
     const courses = canvas(data.key)
     courses.loadcourse((r, e) => {
-      console.log("wjat", e, r)
       if (e) return loaderror(e)
       if (!data.initialized)
-        console.log("initializing"),
         main(),
         data.initialized = true
       data.courses[r.course] = r

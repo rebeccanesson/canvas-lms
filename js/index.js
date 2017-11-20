@@ -529,14 +529,12 @@ var Search = function () {
 
       _classCallCheck(this, Html);
 
-      var match = /(<..*?>)/g;
+      var match = /(<[\S|\s]*?>)/g;
       this.raw = html;
-      this.items = ashtml ? html.split(match).map(function (s) {
-        return s.trim();
-      }).filter(function (s) {
+      this.items = ashtml ? html.split(match).filter(function (s) {
         return s !== '';
       }).map(function (s) {
-        return { "attr": /^<..*?>$/g.test(s), "text": s };
+        return { "attr": /^<[\S|\s]*?>$/g.test(s), "text": onespace(s) };
       }) : [{ "attr": false, "text": html }];
       if (!ashtml) this.items.forEach(function (d) {
         return d.attr ? null : d.text = onespace(d.text + " ");
@@ -750,6 +748,11 @@ var Search = function () {
 
   return Html;
 }();
+
+var string = "<div class=\"yourself\">\n    <p class=\"child\"> \n    Take kindly the counsel of the years,<br>\n    gracefully surrendering the things of youth. <br>\n    Nurture strength of spirit to shield you in sudden misfortune.<br>\n    But do not distress yourself with dark imaginings. <br>\n    Many fears are born of fatigue and loneliness. <br>\n    Beyond a wholesome discipline, <br>\n    be gentle with yourself. <br>\n    </p>\n    <p class=\"child\"> \n    <i>You</i> are a child of the universe, <br>\n    no less than the trees and the stars; <br>\n    you have a right to be _here_. <br>\n    And whether or not it is clear to you, <br>\n    no doubt the universe is unfolding as it \"should.\" <br>\n    </p>\n  </div>";
+
+var s = new Search(string, true);
+console.log(s.text());
 "use strict";
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
@@ -1554,9 +1557,8 @@ function displaycourses() {
   function check() {
     var courses = canvas(data.key);
     courses.loadcourse(function (r, e) {
-      console.log("wjat", e, r);
       if (e) return loaderror(e);
-      if (!data.initialized) console.log("initializing"), main(), data.initialized = true;
+      if (!data.initialized) main(), data.initialized = true;
       data.courses[r.course] = r;
       d3.select("select.course-selection").append("option").text(r.name).attr("value", r.course);
     });
