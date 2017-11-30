@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 const data = {
   key:null,
   initialized: false,
