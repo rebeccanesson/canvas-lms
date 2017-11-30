@@ -105,5 +105,5 @@ class Thing {
 
 
 
-const thing = new Thing("<apikey>", "1074479")
+const thing = new Thing("<apikey>", "<course_id>")
 thing.loadmodules(t => t.push_summary())
