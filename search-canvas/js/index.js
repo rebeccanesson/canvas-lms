@@ -494,8 +494,6 @@ var Search = function () {
     return Math.ceil(Math.log2(x));
   };
 
-  function assert_str_eq() {}
-
   function onespace(s) {
     while (s.includes("  ")) {
       s = s.replace(/  /g, " ");
@@ -513,7 +511,7 @@ var Search = function () {
 
       // binary tree stores the length of the text stored in the tree
       value: function heapify() {
-        var size = this.size = 2 ** ceillog(this.items.length);
+        var size = this.size = 1 << ceillog(this.items.length);
         var heap = this.heap = Array(size << 1 + 1).fill(0);
         this.items.forEach(function (s, i) {
           return heap[i + size] = !s.attr * s.text.length;
