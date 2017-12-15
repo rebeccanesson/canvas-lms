@@ -9,11 +9,6 @@ const Search = (() => {
   // largest power of two greater than or equal to x
   const ceillog = x => Math.ceil(Math.log2(x))
 
-  function assert_str_eq() {
-
-  }
-
-
   function onespace(s) {
     while (s.includes("  "))
       s = s.replace(/  /g, " ")
@@ -32,7 +27,7 @@ const Search = (() => {
 
     // binary tree stores the length of the text stored in the tree
     heapify() {
-      const size = this.size = 2**ceillog(this.items.length)
+      const size = this.size = 1 << ceillog(this.items.length)
       const heap = this.heap = Array(size<<1 + 1).fill(0)
       this.items.forEach((s, i) =>
         heap[i+size] = !s.attr * s.text.length)
@@ -48,7 +43,7 @@ const Search = (() => {
         ? html
           .split(match)
           .filter(s => s !== '')
-          .map(s => ({ "attr": /^<[\S|\s]*?>$/g.test(s), "text":onespace(s) }))
+          .map(s => ({ "attr": /^<[\S|\s]*?>$/g.test(s), "text":onespace(s)}))
         : [{ "attr": false, "text":html }]
       if (!ashtml)
         this.items.forEach(d => 

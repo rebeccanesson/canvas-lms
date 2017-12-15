@@ -144,7 +144,7 @@ function replace() {
     Object
       .values(searchers)
       .forEach(s =>
-              s[0].object.replace(s, replacequery))
+        s[0].object.replace(s, replacequery))
 
     const items = Object.values(searchers)
       .map(s => s[0].object)
