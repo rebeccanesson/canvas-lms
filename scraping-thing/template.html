@@ -1,7 +1,19 @@
+{{#course}}
+  <a href="{{{ url }}}">
+    <h3>{{ name }}</h3>
+  </a>
 
-{{#prework_list}}
-    <h4><a href="{{{html_url}}}"> {{name}} </a></h4>
-    {{#preworks}}
-        <ul><a href="{{{html_url}}}"> {{title}} </a></ul>
-    {{/preworks}}
-{{/prework_list}}
+  {{#mod}}
+    <a href="{{{ url }}}">
+      <h4>{{ name }}</h4>
+    </a>
+
+    {{#item}}
+  
+      <a href="{{{ url }}}">
+        <ul>{{ name }}</ul>
+      </a>
+
+    {{/item}}
+  {{/mod}}
+{{/course}}
