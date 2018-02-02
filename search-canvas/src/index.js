@@ -18,8 +18,6 @@ const data = {
 
 let counter = 0
 
-
-
 function loadcourse(courseid, reload=true) {
 
   function show_in_table(table, item, reindex=true) {
@@ -88,7 +86,6 @@ function loadcourse(courseid, reload=true) {
       .forEach(c => show_in_table(table, c, false))
     data.list.reIndex()
   }
-
 
   return reload ? load(courseid) : nonreload()
 
@@ -168,8 +165,6 @@ function replace() {
 }
 
 
-
-
 function search() {
 
   function totext(m) {
@@ -234,7 +229,6 @@ function search() {
           data.matchlist.filter(item =>
             setvalues.has(item._values["match-type"]))
         })
-        
 
     inputtext
       .append("form")
@@ -338,8 +332,6 @@ function search() {
 }
 
 
-
-
 function displaycourses() {
 
   function initheader(right) {
@@ -424,7 +416,7 @@ function displaycourses() {
       .attr("onsubmit", "event.preventDefault(), search()")
     form
       .append("input")
-            .attr("class", "search")
+        .attr("class", "search")
       .attr("id", "searchquery")
       .attr("placeholder", "search")
 
@@ -443,7 +435,6 @@ function displaycourses() {
       .append("div")
       .attr("class", "inner-bar")
   }
-
 
   function main() {
     const body = d3
@@ -477,7 +468,7 @@ function displaycourses() {
       data.courses[r.course] = r
       d3.select("select.course-selection")
         .append("option")
-        .text(r.name)
+        .text(`${r.course}: ${r.name}`)
         .attr("value", r.course)
     })
 

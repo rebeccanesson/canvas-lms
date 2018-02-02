@@ -1553,7 +1553,7 @@ function displaycourses() {
       if (e) return loaderror(e);
       if (!data.initialized) main(), data.initialized = true;
       data.courses[r.course] = r;
-      d3.select("select.course-selection").append("option").text(r.name).attr("value", r.course);
+      d3.select("select.course-selection").append("option").text(r.course + ": " + r.name).attr("value", r.course);
     });
   }
 
