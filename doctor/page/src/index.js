@@ -22,6 +22,7 @@ class App {
         e : () => self.data[data.person].event[data.event],
         text : () => self.data[data.person].event[data.event].data[data.active]
       }
+
       const options = {
         el              : '#mainapp',
         data            : data,

@@ -292,7 +292,7 @@ class Patient {
     for (const item of data[0].elements)
       if (item.name === 'character')
         this.person = convert(item.elements, extractor),
-        this.person.face = '.' + path+item.attributes.filename
+        this.person.face = path+item.attributes.filename
       else {
         const title = item.attributes.title
         this.events.push(new Event(item, dict[title], path))
@@ -324,8 +324,8 @@ class Patient {
 }
 
 
-const p = Patient.readfile('./data/data/', path)
+const p = Patient.readfile('../page/data/data/', path)
 const data = p.map(p => p.transfer())
 const string = JSON.stringify(data)
 
-fs.writeFile("./data/data.json", string, (err) => console.log(err))
+fs.writeFile("../page/data/data.json", string, (err) => console.log(err))

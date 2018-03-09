@@ -256,7 +256,7 @@ class Patient {
     for (const item of data[0].elements)
       if (item.name === 'character')
         this.person = convert(item.elements, extractor),
-        this.person.face = '.' + path+item.attributes.filename
+        this.person.face = '.' + path+item.attributes.filename,
       else {
         const title = item.attributes.title
         this.events.push(new Event(item, dict[title]))
