@@ -2,7 +2,7 @@ import Vue from 'vue'
 const util = require('./util.js')
 const canvas = require('./canvas.js')
 
-const apikey = "1116~1C25Be4OpOqV1zEWjPAMP2e6RLzRYUpMGpoO8Wc5NzyManRJbHmIFd1d3Jox1w1H"
+const apikey = ""
 
 class View {
 
@@ -13,7 +13,7 @@ class View {
       apikey: apikey,
       name: "Canvas Searcher",
 
-      course: "1074403",
+      course: "",
       query: "",
       ashtml: true,
 
