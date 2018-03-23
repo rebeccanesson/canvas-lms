@@ -1233,8 +1233,8 @@ class View {
 
 
 const view = window.view = new View()
-view.init()
-setTimeout(() => view.loadid(), 1000)
+// view.init()
+// setTimeout(() => view.loadid(), 1000)
 
 ;`for (const i of view.items) {
   if (i.loadertype !== "pages")
