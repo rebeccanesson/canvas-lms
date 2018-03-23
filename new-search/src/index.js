@@ -188,9 +188,12 @@ class View {
 
     let counter = 0
     for (const s of items)
-      s.push(r => {
-        s.fromnewresponse(JSON.parse(r.body))
+      s.push((r, e) => {
         this.vue.load_progress = (++counter) / items.length
+        if (e)
+          window.alert("Failed to send a resource, check console for returned response"),
+          console.log("error", e)
+        s.fromnewresponse(JSON.parse(r.body))
         if (counter === items.length) {
           this.vue.replacing = false
           this.vue.hidden = true
@@ -228,15 +231,4 @@ class View {
 const view = window.view = new View()
 // view.init()
 // setTimeout(() => view.loadid(), 1000)
-
-;`for (const i of view.items) {
-  if (i.loadertype !== "pages")
-    continue
-  const creation_date = i.response.posted_at
-  if (!creation_date.includes("2018-03-22"))
-    continue
-  console.log(creation_date)
-  //i.delete(r => console.log(r))
-  
-}`;
 // const d = canvas(key)
