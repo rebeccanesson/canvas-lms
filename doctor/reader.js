@@ -2,6 +2,10 @@ const fs = require("fs")
 const xml = require('xml-js')
 const util = require("util")
 
+function print(item) {
+  console.log(util.inspect(item, {showHidden: false, depth: null}))
+}
+
 
 const path ='patientlist.xml'
 
@@ -24,11 +28,27 @@ function convert(arr, f=item=>item, id='name') {
   return obj
 }
 
+
+function htmlparse(html, path) {
+  if (!html) 
+    return html
+  html = html
+    .replace(/<(.|)TEXTFORMAT.*?>/g, '')
+    .replace(/<(.|)FONT.*?>/g, '')
+    .replace(/<(.|)P.*?>/g, '<p>')
+    .replace("src=\"", `src=\"`+path)
+  return html
+}
+
+function formatunits(units) {
+
+}
+
 class Display {
 
-  constructor(data) {
+  constructor(data, path) {
     if (!data)
-      this.visible = true
+      this.visible = false
     else
       this.visible = data.attributes.visible === 'true'
 
@@ -37,8 +57,11 @@ class Display {
     else
       this.items = data.elements.map(item => ({
           title : item.attributes.title,
-          body : delve(item, 4).cdata
-      }))
+          body : delve(item, 4).cdata 
+            ? htmlparse(delve(item, 4).cdata, path)
+            : delve(item, 7).text // cdata is not recorded as cdata 
+      }))                         // so you have to dig deeper into p
+                                  // to get this out
   }
 
   transfer() {
@@ -79,9 +102,12 @@ class ListItem {
 
 class Physical {
 
-  constructor(_data) {
-    if (!_data.elements || !_data.elements.length)
+  constructor(_data, path) {
+    if (!_data.elements || !_data.elements.length) {
+      this.data = { title : '', body : '' }
+      this.sign = []
       return
+    }
     const [sign, data] = _data.elements
     if (data.name !== "data")
       [data, sign] = [sign, data]
@@ -89,12 +115,16 @@ class Physical {
     this.data = {
       title : data.attributes.title,
       body : delve(data, 4).cdata
+        ? htmlparse(delve(data, 4).cdata, path)
+        : delve(data, 7).text
     }
     this.sign = sign.elements
       .map(i => convert(i.elements, x=>x.elements))
       .map(i => ({
         name : i.name[0].text,
-        units : i.units[0].cdata,
+        units : i.units[0].cdata
+          ? htmlparse(i.units[0].cdata, path) 
+          : i.units[0].text,
         ident : i.ident[0].text,
         value : i.value ? i.value[0].text : undefined,
       }))
@@ -114,7 +144,7 @@ class Physical {
 
 class Investigate {
 
-  constructor(data) {
+  constructor(data, path) {
 
     function readresult(data) {
       const newobj = convert(data)
@@ -124,30 +154,36 @@ class Investigate {
        || !newobj.value.elements
        || !newobj.range.attributes) return
 
+      const getrange = a => 
+        [a.pre, a.min, a.mid, a.max]
+          .map(i => i ? i : '')
+          .join('')
+
       return {
-        range : newobj.range.attributes,
+        range : getrange(newobj.range.attributes),
         name  : newobj.name.elements[0].text,
         value : newobj.value.elements[0].text,
         units : newobj.units.elements
-          .map(i => ({
-            type : i.name === "sup" ? 'sup' : 'flat',
-            text : i.name === "sup" ? i.elements[0].text : i.text }))
+          .map(i => i.name === "sup"
+            ? `<sup>${i.elements[0].text}</sup>`
+            : i.text)
+          .join("")
       }
     }
 
-    function readtable(item) {
+    function readtable(item, path) {
       return {
         name : item.name,
         title : item.attributes.title,
         data : item.name === "data"
-          ? delve(item, 4)
+          ? htmlparse(delve(item, 4).cdata, path)
           : item.elements
               .map(i => readresult(i.elements))
               .filter(i => i)
       }
     }
 
-    function main(self, data) {
+    function main(self, data, path) {
       self.data = []
       self.results = []
       self.visible = data.attributes.visible === 'true'
@@ -156,12 +192,12 @@ class Investigate {
 
       for (const i of data.elements)
         if (i.name === "data")
-          self.data.push(readtable(i))
+          self.data.push(readtable(i, path))
         else
-          self.results.push(readtable(i))
+          self.results.push(readtable(i, path))
     }
 
-    return main(this, data)
+    return main(this, data, path)
   }
 
   transfer() {
@@ -197,17 +233,18 @@ class guide {
 
 class Event {
 
-  constructor(event, guide) {
+  constructor(event, guide, path) {
     this.title = event.attributes.title
     this.elapsed = event.attributes.elapsedtime
     const rawdata = convert(event.elements)
+    
     this.data = {
-      inbox       : new Inbox(rawdata.inbox),
-      history     : new History(rawdata.history),
-      procedure   : new Procedure(rawdata.procedure),
-      management  : new Management(rawdata.management),
-      physical    : new Physical(rawdata.physical),
-      investigate : new Investigate(rawdata.investigate),
+      inbox       : new Inbox(rawdata.inbox, path),
+      history     : new History(rawdata.history, path),
+      procedure   : new Procedure(rawdata.officeprocedure, path),
+      management  : new Management(rawdata.management, path),
+      physical    : new Physical(rawdata.physical, path),
+      investigate : new Investigate(rawdata.investigate, path),
       druglist    : Drug.readlist(rawdata.druglist),
       problemlist : Problem.readlist(rawdata.problemlist),
     }
@@ -256,10 +293,11 @@ class Patient {
     for (const item of data[0].elements)
       if (item.name === 'character')
         this.person = convert(item.elements, extractor),
-        this.person.face = '.' + path+item.attributes.filename,
+        this.person.face = path+item.attributes.filename,
+        console.log(this.person.face)
       else {
         const title = item.attributes.title
-        this.events.push(new Event(item, dict[title]))
+        this.events.push(new Event(item, dict[title], path))
       }
     }
 
@@ -293,3 +331,4 @@ const data = p.map(p => p.transfer())
 const string = JSON.stringify(data)
 
 fs.writeFile("./page/data/data.json", string, (err) => console.log(err))
+console.log("kek")

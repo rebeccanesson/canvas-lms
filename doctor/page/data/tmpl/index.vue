@@ -1,6 +1,6 @@
 
 <div class="h-100 ph-3">
-	<div class="fixed top-5 h-middle vh-center"><big>Patient Viewer</big></div>
+	<div class="fixed top-5 h-middle vh-center"><big><b>Patient Viewer</b></big></div>
 
 	<select
 		v-model="person"
@@ -10,7 +10,7 @@
 			{{ p.person.name }}
 		</option>
 	</select>
-	<select 
+	<select
 		v-model="event"
 		class="e-choose fixed top-5 right-5 v-center"
 		@change="active = active">
@@ -19,13 +19,11 @@
 		</option>
 	</select>
 
-
 	<div class="flex-column">
 		<div class="flex-top pv-5"></div>
 		<div class="flex-mid relative">
 			<div class="flex-row">
 				<div class="flex-left person relative">
-
 					<table>
 						<tr><td colspan="2" class="text-center">
 							<img class="face" v-bind:src="p.person.face"/>
@@ -55,17 +53,32 @@
 						<tr><td colspan="2">{{ p.person.social }}</td></tr>
 					</table>
 
+				<!-- THESE ARE THE FOUR BUTTONS ON THE LEFT -->
 					<div class="absolute w-100 bottom-1 text-center">
-						<input type="button" class="pointer pastinfo" value="Patient Record">
-						<input type="button" class="pointer pastinfo" value="Problem List">
-						<input type="button" class="pointer pastinfo" value="Drug History">
-						<input type="button" class="pointer pastinfo" value="Patient Charts">
+						<input type="button"
+							@click="app.setactive('records')"
+							class="pointer pastinfo"
+							value="Patient Records">
+						<input type="button"
+							@click="app.setactive('problemlist')"
+							class="pointer pastinfo"
+							value="Problem List">
+						<input type="button"
+							@click="app.setactive('druglist')"
+							class="pointer pastinfo"
+							value="Drug History">
+						<input type="button"
+							@click="app.setactive('charts')"
+							class="pointer pastinfo"
+							value="Patient Charts">
 					</div>
 				</div>
 
+				<!-- THESE ARE THE BUTTONS ON THE TOP -->
 				<div class="flex-mid relative">
 					<div class="flex-column ph-3">
 						<div class="flex-top">
+							<!-- INBOX BUTTON -->
 							<input
 								v-if="e.data.inbox.visible"
 								v-bind:class="
@@ -76,8 +89,11 @@
 									 : 'passive')]"
 								type="button"
 								class="pointer currinfo"
-								@click="e.data.inbox.items.length ? active = 'inbox' : 0"
+								@click="e.data.inbox.items.length
+								      ? app.setactive('inbox')
+								      : undefined"
 								value="Inbox">
+							<!-- HISTORY BUTTON -->
 							<input
 								v-if="e.data.history.visible"
 								v-bind:class="
@@ -88,11 +104,11 @@
 									 : 'passive')]"
 								type="button"
 								class="pointer currinfo"
-								@click="
-									e.data.history.items.length 
-										? active = 'history' : 0,
-									app.show('history')"
+								@click="e.data.history.items.length
+										  ? app.setactive('history')
+										  : undefined"
 								value="History">
+							<!-- PHYSICAL BUTTON -->
 							<input
 								v-if="e.data.physical.visible"
 								v-bind:class="
@@ -103,11 +119,12 @@
 									 : 'passive')]"
 								type="button"
 								class="pointer currinfo"
-								@click="
-									 e.data.physical.data.body || e.data.physical.sign.length
-										? active = 'physical' : 0,
-									 app.show('physical')"
+								@click="(e.data.physical.data.body
+									    || e.data.physical.sign.length)
+									     ? app.setactive('physical')
+									     : undefined"
 								value="Physical">
+							<!-- PROCEDURE BUTTON -->
 							<input
 								v-if="e.data.procedure.visible"
 								v-bind:class="
@@ -118,11 +135,11 @@
 									 : 'passive')]"
 								type="button"
 								class="pointer currinfo"
-								@click="
-									 e.data.procedure.items.length
-										? active = 'procedure' : 0,
-									 app.show('procedure')"
+								@click="e.data.procedure.items.length
+										  ? app.setactive('procedure')
+										  : undefined"
 								value="Procedure">
+							<!-- INVESTIGATE BUTTON -->
 							<input
 								v-if="e.data.investigate.visible"
 								v-bind:class="
@@ -133,11 +150,12 @@
 									 : 'passive')]"
 								type="button"
 								class="pointer currinfo"
-								@click="
-									 (e.data.investigate.data.length || e.data.investigate.results.length)
-										? active = 'investigate' : 0,
-									 app.show('investigate')"
+								@click="(e.data.investigate.data.length
+									    || e.data.investigate.results.length)
+										   ? app.setactive('investigate')
+										   : undefined"
 								value="Investigate">
+							<!-- MANAGEMENT BUTTON -->
 							<input
 								v-if="e.data.management.visible"
 								v-bind:class="
@@ -148,24 +166,25 @@
 									 : 'passive')]"
 								type="button"
 								class="pointer currinfo"
-								@click="
-									 e.data.management.items.length
-										? active = 'management' : 0,
-									 app.show('management')"
+								@click="e.data.management.items.length ? app.setactive('management') : 0"
 								value="Management">
 						</div>
-						
+
+
+						<!-- THESE ARE WHAT ARE DISPLAYED IN THE MAIN BOX -->
 						<div class="flex-mid scroll pv-3 ph-1">
+							<!-- MISCELLANEOUS -->
 							<div v-if="['inbox', 'history', 'procedure', 'management'].includes(active)">
-								<div v-for="item in e.data[active].items"> 
+								<div v-for="item in e.data[active].items">
 									<p class="inherit-text" v-if="item.title"><b>{{ item.title }}</b><br></p>
 									<div
-											class="inherit-text" 
+											class="inherit-text"
 											v-if="item.body"
 											v-bind:style="{ 'font-family': 'cmu-serif' }"
 											v-html="item.body"></div>
 								</div>
 							</div>
+							<!-- PHYSICAL -->
 							<div v-if="active==='physical'">
 								<div v-if="e.data.physical.sign.length">
 									<p><b> Vital Signs </b></p>
@@ -183,11 +202,12 @@
 								<div v-if="e.data.physical.data.title">
 									<b>{{ e.data.physical.data.title }}</b><br><br>
 								</div>
-								<div 
+								<div
 										v-if="e.data.physical.data.body"
 										v-html="e.data.physical.data.body">
 								</div>
 							</div>
+							<!-- INVESTIGATE -->
 							<div v-if="active==='investigate'">
 								<div
 										v-for="r in e.data.investigate.results"
@@ -208,14 +228,54 @@
 										</table>
 									</div>
 								</div>
-								<div
-										v-if="e.data.investigate.data.length"
-										v-for="d in e.data.investigate.data">
+								<div v-if="e.data.investigate.data.length" v-for="d in e.data.investigate.data">
 									<div v-if="d.title"><b> {{ d.title }} </b><br></div>
 									<div v-if="d.data" v-html="d.data"></div>
 								</div>
 							</div>
-						</div>
+							<!-- PATIENT RECORDS -->
+							<div v-if="active==='records'">
+							</div>
+							<!-- PROBLEM LIST -->
+							<div v-if="active==='problemlist'">
+								<table style="width:100%">
+									<tr>
+										<td style="width:25%"><b>Name</b></td>
+										<td style="width:25%"><b>Start</b></td>
+										<td style="width:25%"><b>End</b></td>
+									</tr>
+									<tr v-for="item of app.problemlist()" v-if="item.start <= event || item.start === undefined">
+										<td><b>{{ item.name }}</b></td>
+										<td>{{ item.start === undefined ? '' : p.event[item.start].title }}</td>
+										<td>{{ item.end === undefined || item.end > event ? '' : p.event[item.end].title }}</td>
+									</tr>
+								</table>
+							</div>
+							<!-- DRUG HISTORY -->
+							<div v-if="active==='druglist'">
+								<table style="width:100%">
+									<tr>
+										<td style="width:25%"><b>Name</b></td>
+										<td style="width:25%"><b>Dose</b></td>
+										<td style="width:25%"><b>Start</b></td>
+										<td style="width:25%"><b>End</b></td>
+									</tr>
+									<tr v-for="item of app.druglist()" v-if="item.start <= event || item.start === undefined">
+										<td><b>{{ item.name }}</b></td>
+										<td>{{ item.dose }}</td>
+										<td>{{ item.start === undefined ? '' : p.event[item.start].title }}</td>
+										<td>{{ item.end === undefined || item.end > event ? '' : p.event[item.end].title }}</td>
+									</tr>
+								</table>
+							</div>
+							<!-- CHARTS -->
+							<div v-if="active==='charts'">
+								<div
+									v-for="[key, values] in app.charts()">
+									<div> <h3>{{ values[0].name }}</h3> </div>
+									<div v-bind:id="`charts-${key}`"></div>
+								</div>
+							</div>
 
 						</div>
 					</div>

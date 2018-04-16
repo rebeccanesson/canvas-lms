@@ -92,9 +92,11 @@ class ListItem {
   }
 
   transfer() {
-    const obj = []
+    const obj = {}
     for (const key of this.keys())
-      obj[key] = this[key]
+      if (this[key] !== undefined)
+        obj[key] = this[key]
+    return obj
   }
 
 }
@@ -214,11 +216,11 @@ class History extends Display {}
 class Procedure extends Display {}
 class Management extends Display {}
 class Drug extends ListItem {
-  keys() { return ['state', 'dose'] }
+  keys() { return ['name', 'state', 'dose'] }
 }
 
 class Problem extends ListItem {
-  keys() { return ['state'] }
+  keys() { return ['name', 'state'] }
 }
 
 class guide {
@@ -327,5 +329,7 @@ class Patient {
 const p = Patient.readfile('../page/data/data/', path)
 const data = p.map(p => p.transfer())
 const string = JSON.stringify(data)
+
+
 
 fs.writeFile("../page/data/data.json", string, (err) => console.log(err))

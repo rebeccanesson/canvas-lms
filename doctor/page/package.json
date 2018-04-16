@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-preset-stage-2": "^6.24.1",
     "easyxml": "^2.0.1",
     "jxon": "^2.0.0-beta.5",
     "libxmljs": "^0.18.7",
@@ -20,5 +21,9 @@
     "xml2js": "^0.4.19",
     "xmljson": "^0.2.0",
     "xmltojson": "^1.3.5"
+  },
+  "devDependencies": {
+    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0"
   }
 }

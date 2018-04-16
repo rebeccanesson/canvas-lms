@@ -12,7 +12,11 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel-loader?presets[]=es2015'
+        loader: 'babel-loader',
+        query: {
+            presets: ['es2015', 'stage-2'],
+            plugins: ["syntax-object-rest-spread"]
+        }
       }
     ],
     

@@ -4,6 +4,8 @@
 const fs = require("fs")
 const xml = require('xml-js')
 const util = require("util")
+const bb = require("billboard.js")
+console.log(bb)
 
 const print = obj => console.log(util.inspect(obj, false, 7))
 
