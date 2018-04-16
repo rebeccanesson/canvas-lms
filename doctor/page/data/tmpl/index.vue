@@ -233,125 +233,125 @@
                   <div v-if="d.data" v-html="d.data"></div>
                 </div>
               </div>
-							<!-- PATIENT RECORDS -->
-							<div v-if="active==='records'">
-								<div v-for="e of p.event.slice(0, event+1)">
-									<div></div>
-									<div class="record-title"
-										v-on:click="e.recordshown = !e.recordshown, $forceUpdate()">
-										<h1>{{ e.title }}</h1>
-									</div>
-									<div class="record-body" v-if="e.recordshown">
-										<!-- MISCELLANEOUS -->
-										<div v-for="name in ['Inbox', 'History', 'Procedure', 'Management']"
-											v-if="e.data[name.toLowerCase()] !== undefined
-											   && e.data[name.toLowerCase()].items.length > 0">
-											<hr><h2> {{ name }} </h2><hr>
-											<div v-for="item in e.data[name.toLowerCase()].items" v-if="item.body">
-												<p class="inherit-text" v-if="item.title"><b>{{ item.title }}</b><br></p>
-												<div
-														class="inherit-text"
-														v-if="item.body"
-														v-bind:style="{ 'font-family': 'cmu-serif' }"
-														v-html="item.body"></div>
-											</div>
-										</div>
+              <!-- PATIENT RECORDS -->
+              <div v-if="active==='records'">
+                <div v-for="e of p.event.slice(0, event+1)">
+                  <div></div>
+                  <div class="record-title"
+                    v-on:click="e.recordshown = !e.recordshown, $forceUpdate()">
+                    <h1>{{ e.title }}</h1>
+                  </div>
+                  <div class="record-body" v-if="e.recordshown">
+                    <!-- MISCELLANEOUS -->
+                    <div v-for="name in ['Inbox', 'History', 'Procedure', 'Management']"
+                      v-if="e.data[name.toLowerCase()] !== undefined
+                         && e.data[name.toLowerCase()].items.length > 0">
+                      <hr><h2> {{ name }} </h2><hr>
+                      <div v-for="item in e.data[name.toLowerCase()].items" v-if="item.body">
+                        <p class="inherit-text" v-if="item.title"><b>{{ item.title }}</b><br></p>
+                        <div
+                            class="inherit-text"
+                            v-if="item.body"
+                            v-bind:style="{ 'font-family': 'cmu-serif' }"
+                            v-html="item.body"></div>
+                      </div>
+                    </div>
 
-										<div v-if="e.data.physical.data.body || e.data.physical.sign.length">
-											<hr><h2> Physical </h2><hr>
-											<div>
-												<p><b> Vital Signs </b></p>
-												<div class="ph-3">
-													<table style="width:60%">
-														<tr v-for='item in e.data.physical.sign'>
-															<td class=" ph-1"><b>{{ item.name }}</b></td>
-															<td class="value text-left" v-html="`${item.value} ${item.units}`"></td>
-														</tr>
-													</table>
-												</div>
-												<br>
-											</div>
-											<div v-if="e.data.physical.data.title">
-												<b>{{ e.data.physical.data.title }}</b><br><br>
-											</div>
-											<div v-if="e.data.physical.data.body" v-html="e.data.physical.data.body"></div>
-										</div>
-										<div v-if="e.data.investigate.data.length || e.data.investigate.results.length">
-										  <hr><h2> Investigate </h2><hr>
-											<div
-													v-for="r in e.data.investigate.results"
-													v-if="e.data.investigate.results.length">
-												<p><b>{{ r.title }}</b></p>
-												<div class="ph-3">
-													<table style="width:100%">
-														<tr>
-															<th class="text-left v-top ph-1"> Test </th>
-															<th class="text-left v-top value"> Result </th>
-															<th class="text-left v-top value"> Normal Range </th>
-														</tr>
-														<tr v-for='item in r.data'>
-															<td class="v-top ph-1"><b>{{ item.name }}</b></td>
-															<td class="v-top text-left value" v-html="`${item.value} ${item.units}`"></td>
-															<td class="v-top text-left value" v-html="`${item.range} ${item.units}`"></td>
-														</tr>
-													</table>
-												</div>
-											</div>
-											<div v-if="e.data.investigate.data.length" v-for="d in e.data.investigate.data">
-												<div v-if="d.title"><b> {{ d.title }} </b><br></div>
-												<div v-if="d.data" v-html="d.data"></div>
-											</div>
-										</div>
-										<br><br>
-									</div>
-								</div>
-							</div>
-							<!-- PROBLEM LIST -->
-							<div v-if="active==='problemlist'">
-								<table style="width:100%">
-									<tr>
-										<td style="width:25%"><b>Name</b></td>
-										<td style="width:25%"><b>Start</b></td>
-										<td style="width:25%"><b>End</b></td>
-									</tr>
-									<tr v-for="item of app.problemlist()" v-if="item.start <= event || item.start === undefined">
-										<td><b>{{ item.name }}</b></td>
-										<td>{{ item.start === undefined ? '' : p.event[item.start].title }}</td>
-										<td>{{ item.end === undefined || item.end > event ? '' : p.event[item.end].title }}</td>
-									</tr>
-								</table>
-							</div>
-							<!-- DRUG HISTORY -->
-							<div v-if="active==='druglist'">
-								<table style="width:100%">
-									<tr>
-										<td style="width:25%"><b>Name</b></td>
-										<td style="width:25%"><b>Dose</b></td>
-										<td style="width:25%"><b>Start</b></td>
-										<td style="width:25%"><b>End</b></td>
-									</tr>
-									<tr v-for="item of app.druglist()" v-if="item.start <= event || item.start === undefined">
-										<td><b>{{ item.name }}</b></td>
-										<td>{{ item.dose }}</td>
-										<td>{{ item.start === undefined ? '' : p.event[item.start].title }}</td>
-										<td>{{ item.end === undefined || item.end > event ? '' : p.event[item.end].title }}</td>
-									</tr>
-								</table>
-							</div>
-							<!-- CHARTS -->
-							<div v-if="active==='charts'">
-								<div
-									v-for="[key, values] in app.charts()">
-									<div> <h3>{{ values[0].name }}</h3> </div>
-									<div v-bind:id="`charts-${key}`"></div>
-								</div>
-							</div>
+                    <div v-if="e.data.physical.data.body || e.data.physical.sign.length">
+                      <hr><h2> Physical </h2><hr>
+                      <div>
+                        <p><b> Vital Signs </b></p>
+                        <div class="ph-3">
+                          <table style="width:60%">
+                            <tr v-for='item in e.data.physical.sign'>
+                              <td class=" ph-1"><b>{{ item.name }}</b></td>
+                              <td class="value text-left" v-html="`${item.value} ${item.units}`"></td>
+                            </tr>
+                          </table>
+                        </div>
+                        <br>
+                      </div>
+                      <div v-if="e.data.physical.data.title">
+                        <b>{{ e.data.physical.data.title }}</b><br><br>
+                      </div>
+                      <div v-if="e.data.physical.data.body" v-html="e.data.physical.data.body"></div>
+                    </div>
+                    <div v-if="e.data.investigate.data.length || e.data.investigate.results.length">
+                      <hr><h2> Investigate </h2><hr>
+                      <div
+                          v-for="r in e.data.investigate.results"
+                          v-if="e.data.investigate.results.length">
+                        <p><b>{{ r.title }}</b></p>
+                        <div class="ph-3">
+                          <table style="width:100%">
+                            <tr>
+                              <th class="text-left v-top ph-1"> Test </th>
+                              <th class="text-left v-top value"> Result </th>
+                              <th class="text-left v-top value"> Normal Range </th>
+                            </tr>
+                            <tr v-for='item in r.data'>
+                              <td class="v-top ph-1"><b>{{ item.name }}</b></td>
+                              <td class="v-top text-left value" v-html="`${item.value} ${item.units}`"></td>
+                              <td class="v-top text-left value" v-html="`${item.range} ${item.units}`"></td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                      <div v-if="e.data.investigate.data.length" v-for="d in e.data.investigate.data">
+                        <div v-if="d.title"><b> {{ d.title }} </b><br></div>
+                        <div v-if="d.data" v-html="d.data"></div>
+                      </div>
+                    </div>
+                    <br><br>
+                  </div>
+                </div>
+              </div>
+              <!-- PROBLEM LIST -->
+              <div v-if="active==='problemlist'">
+                <table style="width:100%">
+                  <tr>
+                    <td style="width:25%"><b>Name</b></td>
+                    <td style="width:25%"><b>Start</b></td>
+                    <td style="width:25%"><b>End</b></td>
+                  </tr>
+                  <tr v-for="item of app.problemlist()" v-if="item.start <= event || item.start === undefined">
+                    <td><b>{{ item.name }}</b></td>
+                    <td>{{ item.start === undefined ? '' : p.event[item.start].title }}</td>
+                    <td>{{ item.end === undefined || item.end > event ? '' : p.event[item.end].title }}</td>
+                  </tr>
+                </table>
+              </div>
+              <!-- DRUG HISTORY -->
+              <div v-if="active==='druglist'">
+                <table style="width:100%">
+                  <tr>
+                    <td style="width:25%"><b>Name</b></td>
+                    <td style="width:25%"><b>Dose</b></td>
+                    <td style="width:25%"><b>Start</b></td>
+                    <td style="width:25%"><b>End</b></td>
+                  </tr>
+                  <tr v-for="item of app.druglist()" v-if="item.start <= event || item.start === undefined">
+                    <td><b>{{ item.name }}</b></td>
+                    <td>{{ item.dose }}</td>
+                    <td>{{ item.start === undefined ? '' : p.event[item.start].title }}</td>
+                    <td>{{ item.end === undefined || item.end > event ? '' : p.event[item.end].title }}</td>
+                  </tr>
+                </table>
+              </div>
+              <!-- CHARTS -->
+              <div v-if="active==='charts'">
+                <div
+                  v-for="[key, values] in app.charts()">
+                  <div> <h3>{{ values[0].name }}</h3> </div>
+                  <div v-bind:id="`charts-${key}`"></div>
+                </div>
+              </div>
 
-						</div>
-					</div>
-				</div>
-			</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-		</div>
-	</div>
+    </div>
+  </div>
 </div>
