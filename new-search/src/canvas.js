@@ -5,9 +5,9 @@ const Search = require("./replace.js")
 
 const canvas = module.exports = (() => {
   // local is set in case we're using a server relay
-  const local    = "https://canvas.brown.edu/api/v1/"
-  const endpoint = "https://canvas.brown.edu/api/v1/"
-  const baselink = "https://canvas.brown.edu/"
+  const local    = "https://canvas.harvard.edu/api/v1/"
+  const endpoint = "https://canvas.harvard.edu/api/v1/"
+  const baselink = "https://canvas.harvard.edu/"
 
   class CanvasObject {
 

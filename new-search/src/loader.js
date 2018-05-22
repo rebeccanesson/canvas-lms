@@ -3,9 +3,9 @@ const popsicle = require("popsicle")
 
 const load = module.exports = (() => {
 
-  const endpoint = "https://canvas.brown.edu/api/v1/"
-  const baselink = "https://canvas.brown.edu/"
-  const local = "https://canvas.brown.edu/api/v1/"
+  const endpoint = "https://canvas.harvard.edu/api/v1/"
+  const baselink = "https://canvas.harvard.edu/"
+  const local = "https://canvas.harvard.edu/api/v1/"
 
   class Loader {
 
