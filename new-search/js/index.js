@@ -12328,9 +12328,9 @@ const Search = __webpack_require__(32)
 
 const canvas = module.exports = (() => {
   // local is set in case we're using a server relay
-  const local    = "https://canvas.brown.edu/api/v1/"
-  const endpoint = "https://canvas.brown.edu/api/v1/"
-  const baselink = "https://canvas.brown.edu/"
+  const local    = "https://canvas.harvard.edu/api/v1/"
+  const endpoint = "https://canvas.harvard.edu/api/v1/"
+  const baselink = "https://canvas.harvard.edu/"
 
   class CanvasObject {
 
@@ -12737,9 +12737,9 @@ const popsicle = __webpack_require__(18)
 
 const load = module.exports = (() => {
 
-  const endpoint = "https://canvas.brown.edu/api/v1/"
-  const baselink = "https://canvas.brown.edu/"
-  const local = "https://canvas.brown.edu/api/v1/"
+  const endpoint = "https://canvas.harvard.edu/api/v1/"
+  const baselink = "https://canvas.harvard.edu/"
+  const local = "https://canvas.harvard.edu/api/v1/"
 
   class Loader {
 
